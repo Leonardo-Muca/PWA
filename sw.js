@@ -34,3 +34,22 @@ self.addEventListener("fetch", (e) => {
   );
   //   e.waitUntil(response);
 });
+
+self.addEventListener('install',e =>{
+  const cacheProm = caches.open('nuevo')
+  .then(cache =>{
+      //Dentro de cache add all le ingresaremos un vector
+      cache.addAll([
+          'index.html',
+          'css/style.css',
+          'img/main.jpg',
+          'js/app.js',
+          'https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css',
+      ])
+  })
+  e.waitUntil(cacheProm);
+});
+
+self.addEventListener('fethc',  e =>{
+  e.respondWith(caches.match( e.request));
+});
