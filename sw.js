@@ -1,55 +1,54 @@
-const STATIC_CACHE = "static-v1";
-
-const APP_SHELL = [
-  "/",
-  "index.html",
-  "css/styles.css",
-  "js/main.js",
-  "images/beerjs-logo.png",
-  "images/1.png",
-  "images/2.png",
-  "images/3.png",
-  "images/facebook.png",
-  "images/twiter.png",
-  "images/instagram.png",
-];
-
-self.addEventListener("install", (e) => {
-  const cacheStatic = caches
-    .open(STATIC_CACHE)
-    .then((cache) => cache.addAll(APP_SHELL));
-
-  e.waitUntil(cacheStatic);
-});
-
-self.addEventListener("fetch", (e) => {
-  console.log("fetch! ", e.request);
-  e.respondWith(
-    caches
-      .match(e.request)
-      .then((res) => {
-        return res || fetch(e.request);
-      })
-      .catch(console.log)
-  );
-  //   e.waitUntil(response);
-});
-
-self.addEventListener('install',e =>{
-  const cacheProm = caches.open('nuevo')
-  .then(cache =>{
-      //Dentro de cache add all le ingresaremos un vector
+self.addEventListener('install', e => {
+  const cacheProm = caches.open('cache-v1')
+    .then(cache => {
       cache.addAll([
-          'index.html',
-          'css/style.css',
-          'img/main.jpg',
-          'js/app.js',
-          'https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css',
+        './',
+        '/index.html',
+        '/css/estilos.css',
+        '/js/main.js',
+        '/js/app.js',
+        '/images/1.jpeg',
+        '/images/1.png',
+        '/images/2.jpeg',
+        '/images/2.png',
+        '/images/3.jpeg',
+        '/images/3.png',
+        '/images/4.png',
+        '/images/5.png',
+        '/images/6.png',
+        '/images/beerjs-logo.png',
+        '/images/facebook.png',
+        '/images/twiter.png',
+        '/images/instagram.png',
+        '/images/icon-192x192.png',
+        '/images/icon-256x256.png',
+        '/images/icon-384x384.png',
+        '/images/icon-512x512.png',
+        'https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css',
       ])
-  })
+    });
   e.waitUntil(cacheProm);
 });
 
-self.addEventListener('fethc',  e =>{
-  e.respondWith(caches.match( e.request));
+self.addEventListener('fetch', e => {
+  //cache with network fallback
+  const respuesta = caches.match(e.request)
+    .then(res => {
+      if (res) return res;
+      //no existe el archivo
+      //tengo que ir a la web
+      console.log('No existe', e.request.url);
+      return fetch(e.request).then(newResp => {
+        caches.open('cache-v1')
+          .then(cache => {
+            cache.put(e.request, newResp);
+          }
+
+          )
+        return newResp.clone;
+      });
+    });
+  e.respondWith(respuesta);
+  //only cache
+  //e.respondWith( caches.match(e.request));
 });

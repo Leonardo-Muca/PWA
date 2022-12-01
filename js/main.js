@@ -1,11 +1,9 @@
-//Configurar SW
-let swLocation = "sw.js";
-// "/beerjs/sw.js";
+if ('serviceWorker' in navigator) {
+  console.log('Puedes usar los service worker en tu navegador');
+  navigator.serviceWorker.register('sw.js')
+    .then(res => console.log('serviceWorker cargado correctamente', res))
+    .catch(err => console.log('serviceWorker no se ha podido registrar', res))
+} else {
+  console.log('NO Puedes usar los service worker en tu navegador');
 
-if (navigator.serviceWorker) {
-  if (window.location.href.includes("localhost")) swLocation = "/sw.js"; //Varia según el host
-  navigator.serviceWorker.register(swLocation);
 }
-
-//Logic of web app
-console.log("Mi nombre es Muca!!");

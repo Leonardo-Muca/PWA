@@ -1,6 +1,14 @@
 {
-    "short_name": "pwa",
-    "name": "PWA de Leonardo",
+    "name": "PWA Leonardo Muñoz",
+    "short_name" : "PWA",
+    "description" : "Aplicacion pwa de curso aplicaciones web progresivas",
+    "background_color": "#FFF",
+    "theme_color": "#333",
+    "orientation":"portrait",
+    "display":"standalone",
+    "start_url":"./index.html?utm_source=web_app_manifest",
+    "scope":"./",
+    "lang":"es-MX",
     "icons": [
         {
             "src": "images/icon-192x192.png",
@@ -22,11 +30,5 @@
             "sizes": "512x512",
             "type": "image/png"
         }
-    ],
-    "start_url": "index.html",
-    "background_color": "#f9d627",
-    "display": "standalone",
-    "scope": "/",
-    "theme_color": "#f9d627",
-    "description": "PWA como app"
+    ]
 }
