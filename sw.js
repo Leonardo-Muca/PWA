@@ -16,7 +16,7 @@ self.addEventListener('install', e => {
         '/images/4.png',
         '/images/5.png',
         '/images/6.png',
-        '/images/beerjs-logo.png',
+        '/images/beerjs.png',
         '/images/facebook.png',
         '/images/twiter.png',
         '/images/instagram.png',
